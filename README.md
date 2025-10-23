@@ -1,6 +1,5 @@
 # SIC-ASSEMBLER
 
-
 這是一個使用 C++ 實作的簡易版 SIC (Simplified Instructional Computer) 組譯器。此專案是根據課程練習 `exer3`, `exer4`, `exer5` 組合而成，展示了一個經典的 two-pass assembler 如何將 SIC 組合語言原始碼轉換為目的檔 (Object File)。
 
 ## 專案結構
@@ -15,7 +14,7 @@
 
   * **輸出：** `stdout` (正規化、已移除註解、固定欄位的組合語言)
 
-  * **核心：** 負責清理原始碼，統一大小寫 (會保留 `C'...'` 常數內部)，並根據固定欄位 (Label, Opcode, Operand) 拆分指令，使 Pass 1 更容易解析。
+  * **核心：** 負責清理原始碼，統一大小寫，並根據固定欄位 (Label, Opcode, Operand) 拆分指令，使 Pass 1 更容易解析。
 
 * **`exer4.cpp` (Assembler Pass 1)**
 
@@ -23,7 +22,7 @@
 
   * **輸入：** `stdin` (來自 `exer3` 的正規化程式碼)
 
-  * **輸出：** `SYMTAB` (符號表檔案) 和 `INTFILE` (中介檔)
+  * **輸出：** `SYMTAB` 和 `INTFILE`
 
   * **核心：** 建立符號表 (Symbol Table)，將所有 Label 與其記憶體位址 (LOCCTR) 對應起來。同時產生 `INTFILE`，其中包含每行原始碼及其分配到的位址。
 
@@ -52,8 +51,8 @@ g++ -o pass1 exer4.cpp
 g++ -o pass2 exer5.cpp
 ```
 
-如何執行 (完整管線)
-這三個程式需要像管線 (pipeline) 一樣依序執行。
+如何執行
+這三個程式需要像pipeline一樣依序執行。
 
 假設有一個 SIC 原始碼檔案叫做 my_program.asm：
 ```bash
