@@ -50,3 +50,20 @@ g++ -o pass1 exer4.cpp
 
 # 編譯 exer5 (Pass 2)
 g++ -o pass2 exer5.cpp
+
+
+如何執行 (完整管線)
+這三個程式需要像管線 (pipeline) 一樣依序執行。
+
+假設有一個 SIC 原始碼檔案叫做 my_program.asm：
+# 步驟 1 & 2: 執行 Normalizer (my-split) 和 Pass 1 (pass1)
+# my-split 會讀取 .asm 檔，並將其輸出透過 pipe 傳給 pass1
+# pass1 執行完後會自動產生 SYMTAB 和 INTFILE 兩個檔案
+cat my_program.asm | ./my-split | ./pass1
+
+# 步驟 3: 執行 Pass 2 (pass2)
+# pass2 會自動讀取 SYMTAB 和 INTFILE
+# 它的輸出 (目的檔) 會顯示在畫面上，所以我們將它重導向到一個 .obj 檔案
+./pass2 > my_program.obj
+
+執行完畢後，你就會得到 my_program.obj，這就是可以被 SIC 模擬器 (simulator) 載入並執行的目的檔。
